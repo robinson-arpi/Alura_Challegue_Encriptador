@@ -1,0 +1,80 @@
+/* Definición de variables de colores */
+:root {
+    --color-primario: #ff9800;
+    --color-secundario: #ffce63;
+    --color-terciario: black;
+    --color-text: white;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .title_1 {
+    color: var(--color-text) !important;
+  }
+  
+  .title_1:hover{
+    color: var(--color-secundario) !important;
+  }
+
+
+  .navbar-custom {
+    padding-top: 0 !important;
+    background: var(--color-primario) !important;
+    color: var(--color-secundario) !important; /* Cambia este valor al color del texto que desees */
+    height: 9vh;
+  }
+
+  .container {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+
+  footer {
+    border-top: 2px solid var(--color-primario);
+    height: 4vh;
+    text-align: center;
+  }
+
+  .custom-text{
+    width: 100%;
+    height: 70vh;
+  }
+
+
+  .custom-card{
+    height: 70vh;
+  }
+
+  .custom-button{
+    background: var(--color-primario) !important;
+    margin-right: 8px;
+    margin-left: 8px;
+  }
+  
+  .custom-button:hover{
+    background: var(--color-secundario) !important;
+    border-color: var(--color-primario) !important; /* Change this to the desired shade of blue */
+    box-shadow: 0 4px 8px var(--color-primario); /* Cambia la sombra al hacer hover */
+  
+  }
+
+  .table-container {
+    overflow-y: auto;   /* Agrega una barra de desplazamiento vertical si el contenido es demasiado largo */
+    height: 35vh;
+
+    }
+    .table {
+        border-collapse: collapse;  /* Combina los bordes de las celdas para un espaciado más compacto */
+    }
+    
+    .table th, .table td {
+        padding: 8px;  /* Ajusta el relleno para controlar el espaciado dentro de las celdas */
+    }
+    
