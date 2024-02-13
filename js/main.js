@@ -1,80 +1,85 @@
 var originalText = "";
-var encryptText = "";
 var background = document.getElementById('background');
 var modal = document.getElementById("dialogModal");
 
-
-function validateKey(event){
-    return ((event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32));
+function validateKey(event) {
+    return (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32);
 }
 
-function encrypt(){
-  var resultContainer = document.getElementById("container-result");
-  var notResultContainer = document.getElementById("container-not-result");
-  originalText = document.getElementById("originalText").value;
+function processText(replacements) {
+    // Obtener los elementos del DOM
+    var resultContainer = document.getElementById("container-result");
+    var notResultContainer = document.getElementById("container-not-result");
 
-  if (originalText !== "") {
-    encryptText = originalText
-    .replace(/e/g, "enter")
-    .replace(/i/g, "imes")
-    .replace(/a/g, "ai")
-    .replace(/o/g, "ober")
-    .replace(/u/g, "ufat");
+    // Obtener el texto original del input
+    originalText = document.getElementById("originalText").value;
 
-    document.getElementById("result").innerText = encryptText;
-    resultContainer.classList.remove("inactive");
-    notResultContainer.classList.add("inactive");
+    // Verificar si el texto original no está vacío
+    if (originalText !== "") {
+        // Inicializar el texto encriptado con el texto original
+        var encryptText = originalText;
 
-  } else {
-    resultContainer.classList.add("inactive");
-    notResultContainer.classList.remove("inactive");
-  }
+        // Iterar sobre las sustituciones y aplicar los reemplazos en orden
+        for (var key in replacements) {
+            if (replacements.hasOwnProperty(key)) {
+                encryptText = encryptText.replace(new RegExp(key, "g"), replacements[key]);
+            }
+        }
+
+        // Mostrar el resultado en el elemento con el id "result"
+        document.getElementById("result").innerText = encryptText;
+
+        // Mostrar el contenedor del resultado y ocultar el contenedor de "no resultado"
+        resultContainer.classList.remove("inactive");
+        notResultContainer.classList.add("inactive");
+    } else {
+        // Si el texto original está vacío, ocultar el contenedor del resultado y mostrar el contenedor de "no resultado"
+        resultContainer.classList.add("inactive");
+        notResultContainer.classList.remove("inactive");
+    }
 }
 
-function decrypt(){
-  var resultContainer = document.getElementById("container-result");
-  var notResultContainer = document.getElementById("container-not-result");
-  originalText = document.getElementById("originalText").value;
-
-  if (originalText !== "") {
-    encryptText = originalText
-    .replace(/enter/g, "e")
-    .replace(/imes/g, "i")
-    .replace(/ai/g, "a")
-    .replace(/ober/g, "o")
-    .replace(/ufat/g, "u");
-    
-    document.getElementById("result").innerText = encryptText;
-    
-    resultContainer.classList.remove("inactive");
-    notResultContainer.classList.add("inactive");
-
-  } else {
-    resultContainer.classList.add("inactive");
-    notResultContainer.classList.remove("inactive");
-  }
+function encrypt() {
+    var replacements = {
+        "a": "ai",
+        "e": "enter",
+        "i": "imes",
+        "o": "ober",
+        "u": "ufat"
+    };
+    processText(replacements);
 }
 
-function clean(){
-  document.getElementById("result").innerText = "";
-  document.getElementById("originalText").value ="";
+function decrypt() {
+    var replacements = {
+        "ai": "a",
+        "enter": "e",
+        "imes": "i",
+        "ober": "o",
+        "ufat": "u"
+    };
+    processText(replacements);
 }
 
-function copy(){
-  var textarea = document.getElementById("result");
-  textarea.select();
-  document.execCommand("copy");
-  textarea.setSelectionRange(0, 0);
-  this.showModal();
-  clean();
+function clean() {
+    document.getElementById("result").innerText = "";
+    document.getElementById("originalText").value = "";
+}
+
+function copy() {
+    var textarea = document.getElementById("result");
+    textarea.select();
+    document.execCommand("copy");
+    showModal();
+    clean();
 }
 
 function showModal() {
-  modal.show();
-  background.style.display = 'block';
+    modal.show();
+    background.style.display = 'block';
 }
 
-function closeModal(){
-  modal.close();
-  background.style.display = 'none';
+function closeModal() {
+    modal.close();
+    background.style.display = 'none';
 }
